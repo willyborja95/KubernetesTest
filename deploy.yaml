@@ -14,22 +14,12 @@ spec:
     spec:
       containers:
         - name: users-service
-          image: users-service
+          image: spring-boot-app
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 5
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 5
+            - containerPort: 8383
       restartPolicy: Always
-
+----
 kind: Service
 paiVersion: v1
 metadata:
@@ -37,8 +27,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port 8080
-      targetPort: 8080
+    - port 8383
+      targetPort: 8383
       protocol: TCP
       nodePort: 31000
   selector:
